@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %} Головна сторінка {% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">🍽 Меню ресторану</span>
+    </div>
+</nav>
+
+<div class="container">
+
+    {% for category in categories %}
+        <h2 class="mb-3 mt-4">{{ category.name }}</h2>
+
+        <div class="row g-4">
+            {% for dish in category.dishes.all %}
+                {% if dish.available %}
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+
+                        {% if dish.image %}
+                            <img src="{{ dish.image.url }}" class="card-img-top" alt="{{ dish.name }}">
+                        {% endif %}
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ dish.name }}</h5>
+                            <p class="card-text text-muted">{{ dish.description }}</p>
+
+                            <p class="fw-bold mt-auto">
+                                💰 {{ dish.price }} грн
+                            </p>
+
+                            <button class="btn btn-primary w-100">
+                                Додати в замовлення
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
