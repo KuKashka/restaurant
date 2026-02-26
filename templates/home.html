@@ -2,11 +2,7 @@
 {% block title %} Головна сторінка {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-dark bg-dark mb-4">
-    <div class="container">
-        <span class="navbar-brand mb-0 h1">🍽 Меню ресторану</span>
-    </div>
-</nav>
+
 
 <div class="container">
 
@@ -30,10 +26,13 @@
                             <p class="fw-bold mt-auto">
                                 💰 {{ dish.price }} грн
                             </p>
+                            <form action="{% url 'add_to_order' dish.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-primary w-100"> 
+                                    Додати в замовлення
+                                </button>
+                            </form>
 
-                            <button class="btn btn-primary w-100">
-                                Додати в замовлення
-                            </button>
                         </div>
                     </div>
                 </div>

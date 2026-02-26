@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} Ваше замовлення {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Ваше замовлення</h1>
+
+    {% if dishes_in_cart %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Страва</th>
+                    <th>Кількість</th>
+                    <th>Ціна за одиницю</th>
+                    <th>Загальна ціна</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in dishes_in_cart %}
+                <tr>
+                    <td>{{ item.dish.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.dish.price }} грн</td>
+                    <td>{{ item.total_price }} грн</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 class="mt-4">Загальна сума: {{ total_price }} грн</h3>
+        <button class="btn btn-success mt-3">Оформити замовлення</button>
+    {% else %}
+        <p class="text-muted">Ваше замовлення порожнє. Додайте страви з меню.</p>
+    {% endif %}
+</div>
+{% endblock %}
