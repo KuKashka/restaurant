@@ -13,6 +13,7 @@
                     <th>Кількість</th>
                     <th>Ціна за одиницю</th>
                     <th>Загальна ціна</th>
+                    <th>Дія</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,14 @@
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.dish.price }} грн</td>
                     <td>{{ item.total_price }} грн</td>
+                    <td>
+                    <form method="post" action="{% url 'remove_from_order' item.dish.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Видалити
+                            </button>
+                    </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

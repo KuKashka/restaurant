@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.shortcuts import redirect, get_object_or_404
 
 from main.models import Category, Dish, Order, DishInOrder
 def home(request):
@@ -41,5 +42,18 @@ def view_cart(request):
         'total_price': total_price
     }
     return render(request, 'cart.html', context)
+
+def remove_from_order(request, dish_id):
+    # Логіка для видалення страви з замовлення
+    if request.method == 'POST':
+        # Тут можна реалізувати логіку додавання страви до замовлення
+        dish = Dish.objects.get(id=dish_id)
+        cart = request.session.get('cart', {})
+        if str(dish_id) in cart:
+            cart[str(dish_id)] += -1
+            if cart[str(dish_id)] <= 0:
+                del cart[str(dish_id)]
+        request.session['cart'] = cart
+    return redirect('view_cart')
 
 # Create your views here.
